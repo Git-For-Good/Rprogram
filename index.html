@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <title>R Program</title>
+  </head>
+  <body>
+
+
+
+
+9)
+MySQL:
+
+CREATE DATABASE SchoolDB;
+USE SchoolDB;
+CREATE TABLE Students (
+StudentID INT PRIMARY KEY AUTO_INCREMENT,
+FirstName VARCHAR(50) NOT NULL,
+LastName VARCHAR(50) NOT NULL,
+Age INT,
+Email VARCHAR(100) UNIQUE);
+
+insert INTO Students (FirstName, LastName, Age, Email)VALUES ('John', 'Doe', 20, 'john.doe@example.com');
+
+SELECT * FROM Students;
+
+R:
+
+# Install RMySQL if not already installed
+if (!require("RMySQL")) {
+  install.packages("RMySQL")
+}
+
+# Load the RMySQL library
+library(RMySQL)
+
+# Connect to the MySQL database
+con <- dbConnect(MySQL(),  
+                 user = "root",  
+                 password = "adityasony", 
+                 dbname = "SchoolDB",  
+                 host = "localhost",  # Usually 'localhost' or '127.0.0.1'
+                 port = 3001)         # Port is usually 3306
+
+# Fetch data from the Students table
+data <- dbGetQuery(con, "SELECT * FROM Students")
+
+# Print the data
+print(data)
+
+# Disconnect from the database
+dbDisconnect(con)
+
+    
+  </body>
+</html>
